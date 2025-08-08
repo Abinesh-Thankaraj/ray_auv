@@ -1,0 +1,7 @@
+custom_thruster_manager:
+  ros__parameters:
+    min_thrust: -40.0
+    max_thrust: 40.0
+    deadzone: 0.5  # Reduced deadzone for smoother control
+    thruster_names: ["thruster1", "thruster2", "thruster3", "thruster4", "thruster5", "thruster6"]
+    use_sim_time: true
