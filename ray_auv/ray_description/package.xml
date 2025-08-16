@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>ray_description</name>
+  <version>0.1.0</version>
+  <description>The ray_description package</description>
+
+  <maintainer email="abineshthankaraj2004@gmail.com">Abinesh Thankaraj</maintainer>
+
+  <license>MIT</license>
+  
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
