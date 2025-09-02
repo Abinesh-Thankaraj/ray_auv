@@ -1,0 +1,120 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="sand_ocean">
+
+    <scene>
+      <grid>false</grid>
+    </scene>
+
+
+    <physics name="10ms" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    
+    <scene>
+      <ambient>0.02 0.05 0.1 1.0</ambient>
+      <!-- <background>0.7 0.8 0.9 1.0</background> -->
+      <background>0.005 0.02 0.08 1.0</background>
+      <grid>false</grid>
+      <fog>
+        <color>0.02 0.05 0.1 1.0</color>
+        <type>linear</type>
+        <density>0.05</density>
+        <start>0.5</start>
+        <end>10.0</end>
+      </fog>
+    </scene>
+        
+    <plugin
+      filename="ignition-gazebo-physics-system"
+      name="ignition::gazebo::systems::Physics">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-user-commands-system"
+      name="ignition::gazebo::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-scene-broadcaster-system"
+      name="ignition::gazebo::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-imu-system"
+      name="ignition::gazebo::systems::Imu">
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-sensors-system"
+      name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin
+      filename="ignition-gazebo-buoyancy-system"
+      name="ignition::gazebo::systems::Buoyancy">
+      <graded_buoyancy>
+        <default_density>1000</default_density>
+        <density_change>
+          <above_depth>0</above_depth>
+          <density>1</density>
+        </density_change>
+      </graded_buoyancy>
+    </plugin>
+
+    <!-- Light -->   
+    <light type="directional" name="sun">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 1000 0 0 0</pose>
+      <diffuse>0.2 0.2 0.2 1</diffuse>
+      <specular>0.01 0.01 0.01 1</specular>
+      <direction>0.2 0.9 -0.8</direction>
+      <visualize>false</visualize>
+      <attenuation> 
+        <range>50</range>
+        <constant>0.8</constant>
+        <linear>0.02</linear>
+        <quadratic>0.002</quadratic>
+      </attenuation>
+    </light>
+
+     
+    <light name='directionallight' type='directional'>
+      <pose>2.18504 1.84082 2 0 0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>0 0 -1</direction>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <linear>0.01</linear>
+        <constant>0.90000000000000002</constant>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+
+
+
+    <include>
+      <uri>file://src/ray_auv/ray_description/models/sand_heightmap/model.sdf</uri>
+      <pose>0 7 -20 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>file://src/ray_auv/ray_description/models/ocean_surface/model.sdf</uri>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>file://src/ray_auv/ray_description/models/Coast_Water/model.sdf</uri>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>
+
+
+

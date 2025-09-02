@@ -14,7 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<sdf version="1.5">
+<sdf version="1.6">
   <model name="sand_heightmap">
     <static>true</static>
     <link name="link">
@@ -23,7 +23,7 @@
         <geometry>
           <mesh>
             <scale>0.5 0.5 0.25</scale>
-            <uri>model://sand_heightmap/meshes/sandseabed.dae</uri>
+            <uri>file://src/ray_auv/ray_description/models/sand_heightmap/meshes/sandseabed.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -33,7 +33,7 @@
         <geometry>
           <mesh>
             <scale>0.5 0.5 0.25</scale>
-            <uri>model://sand_heightmap/meshes/sandseabed.dae</uri>
+            <uri>file://src/ray_auv/ray_description/models/sand_heightmap/meshes/sandseabed.dae</uri>
           </mesh>
         </geometry>
         <material>

@@ -8,10 +8,10 @@ def generate_launch_description():
     sl.declare_arg('spawn', default_value=True)
 
     with sl.group(if_arg='gui'):
-        sl.gz_launch(sl.find('ray_description', 'underwater.sdf'), "-r")
+        sl.gz_launch(sl.find('ray_description', 'demo_world.sdf'), "-r")
         
     with sl.group(unless_arg='gui'):
-        sl.gz_launch(sl.find('ray_description', 'underwater.sdf'), "-r -s")
+        sl.gz_launch(sl.find('ray_description', 'demo_world.sdf'), "-r -s")
 
     bridges = [GazeboBridge.clock(),
                GazeboBridge('/ocean_current', '/current', 'geometry_msgs/Vector3',
