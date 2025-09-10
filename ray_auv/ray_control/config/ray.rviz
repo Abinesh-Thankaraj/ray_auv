@@ -170,7 +170,7 @@ Visualization Manager:
       Alpha: 1
       Arrow Width: 0.5
       Class: rviz_default_plugins/Wrench
-      Enabled: true
+      Enabled: false
       Force Arrow Scale: 1
       Force Color: 204; 51; 51
       History Length: 1
@@ -189,7 +189,7 @@ Visualization Manager:
       Alpha: 1
       Arrow Width: 0.5
       Class: rviz_default_plugins/Wrench
-      Enabled: true
+      Enabled: false
       Force Arrow Scale: 1
       Force Color: 204; 51; 51
       History Length: 1
@@ -295,6 +295,23 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Camera
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /ray/image
+      Unreliable: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
