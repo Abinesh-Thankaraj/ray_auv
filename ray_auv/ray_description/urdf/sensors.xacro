@@ -105,11 +105,39 @@
     <origin xyz="0.1 0 0" rpy="0 0 ${-PI/2}"/>
 </xacro:imu>
 
+
+
+  <!-- Pressure Sensor for Underwater Depth -->
+  <link name="${ns}/pressure_sensor"/>
   
-  <!-- Pressure Sensor  -->
-<!--  <xacro:default_pressure parent_link="${ns}/base_link" sensor_name="baro">
+  <joint name="pressure_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0"/>
-  </xacro:default_pressure>-->
+    <parent link="${ns}/base_link"/>
+    <child link="${ns}/pressure_sensor"/>
+  </joint>
+
+  <gazebo reference="${ns}/pressure_sensor">
+    <sensor name="pressure" type="custom" gz:type="pressure">
+      <always_on>1</always_on>
+      <update_rate>20</update_rate>
+      <visualize>true</visualize>
+      <topic>${ns}/pressure</topic>
+    </sensor>
+  </gazebo>
+
+  <!-- Alternative: Use IMU Z-position for depth calculation -->
+  <gazebo>
+    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50.0</updateRate>
+      <bodyName>${ns}/base_link</bodyName>
+      <topicName>${ns}/ground_truth/state</topicName>
+      <gaussianNoise>0.01</gaussianNoise>
+      <frameName>world</frameName>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
+  </gazebo>
   
   
   <link name="${ns}/camera">
