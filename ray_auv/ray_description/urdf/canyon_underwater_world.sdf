@@ -39,10 +39,6 @@
       name="ignition::gazebo::systems::SceneBroadcaster">
     </plugin>
     <plugin
-      filename="ignition-gazebo-altimeter-system"
-      name="ignition::gazebo::systems::Altimeter">
-    </plugin>
-    <plugin
       filename="ignition-gazebo-air-pressure-system"
       name="ignition::gazebo::systems::AirPressure">
     </plugin>

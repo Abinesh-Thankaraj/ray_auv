@@ -53,9 +53,9 @@ def launch_setup():
             bridges.append(GazeboBridge(f'{ns}/{imu}',
                           imu, 'sensor_msgs/Imu', GazeboBridge.gz2ros))
 
-        # air pressure
-        bridges.append(GazeboBridge(f'{ns}/air_pressure',
-                      'air_pressure', 'sensor_msgs/FluidPressure', GazeboBridge.gz2ros))
+        # pressure sensor
+        bridges.append(GazeboBridge(f'{ns}/pressure',
+                      'pressure', 'sensor_msgs/FluidPressure', GazeboBridge.gz2ros))
 
         # sonar (as laser scan for now...)
         bridges.append(GazeboBridge(f'{ns}/sonar', 'sonar', 'sensor_msgs/LaserScan', GazeboBridge.gz2ros))

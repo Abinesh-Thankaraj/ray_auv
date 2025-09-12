@@ -107,38 +107,43 @@
 
 
 
-  <!-- Pressure Sensor for Underwater Depth -->
-  <link name="${ns}/pressure_sensor"/>
-  
+  <!-- Pressure Sensor -->
+  <link name="${ns}/pressure_sensor">
+    <inertial>
+      <mass value="0.01"/>
+      <inertia
+        ixx="0.001"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.001"
+        iyz="0"
+        izz="0.001"/>
+    </inertial>
+  </link>
+
   <joint name="pressure_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="${ns}/base_link"/>
     <child link="${ns}/pressure_sensor"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
   <gazebo reference="${ns}/pressure_sensor">
-    <sensor name="pressure" type="custom" gz:type="pressure">
+    <sensor name="pressure" type="air_pressure">
+      <air_pressure>
+        <reference_altitude>0</reference_altitude>
+        <noise type="gaussian">
+          <mean>0.00000008</mean>
+          <stddev>0.0001</stddev>
+        </noise>
+      </air_pressure>
       <always_on>1</always_on>
       <update_rate>20</update_rate>
       <visualize>true</visualize>
       <topic>${ns}/pressure</topic>
+      <enable_metrics>false</enable_metrics>
     </sensor>
   </gazebo>
 
-  <!-- Alternative: Use IMU Z-position for depth calculation -->
-  <gazebo>
-    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
-      <alwaysOn>true</alwaysOn>
-      <updateRate>50.0</updateRate>
-      <bodyName>${ns}/base_link</bodyName>
-      <topicName>${ns}/ground_truth/state</topicName>
-      <gaussianNoise>0.01</gaussianNoise>
-      <frameName>world</frameName>
-      <xyzOffsets>0 0 0</xyzOffsets>
-      <rpyOffsets>0 0 0</rpyOffsets>
-    </plugin>
-  </gazebo>
-  
   
   <link name="${ns}/camera">
     <inertial>
