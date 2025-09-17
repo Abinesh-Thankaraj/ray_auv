@@ -14,7 +14,8 @@ def generate_launch_description():
         # load body controller anyway
         sl.node('auv_control', 'sliding_mode', parameters=[sl.find('ray_control', 'sliding_mode.yaml')],
                 output='screen')
-
+        # Launch pressure sensor for depth and bar pressure readings
+        sl.node('ray_description', 'ray_pressure_sensor.py', name='ray_pressure_sensor', output='log')
         with sl.group(if_arg='sliders'):
             sl.node('slider_publisher', 'slider_publisher', name='pose_control',
                     arguments=[sl.find('auv_control', 'pose_setpoint.yaml')])

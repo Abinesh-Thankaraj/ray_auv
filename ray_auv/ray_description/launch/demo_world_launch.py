@@ -21,5 +21,6 @@ def generate_launch_description():
 
     with sl.group(if_arg='spawn'):
         sl.include('ray_description', 'upload_ray_launch.py')
+        sl.node('ray_description', 'ray_pressure_sensor.py', name='ray_pressure_sensor', output='log')
         
     return sl.launch_description()
