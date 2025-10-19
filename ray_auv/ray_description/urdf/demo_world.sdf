@@ -80,6 +80,13 @@
         </visual>
       </link>
     </model>
+
+    <!-- Standing person model for detection testing -->
+    <include>
+      <uri>file:///home/pdc/ray_ws/src/ray_auv/ray_description/models/standing_person</uri>
+      <name>person_1</name>
+      <pose>5 0 0 0 0 0</pose>
+    </include>
     
   </world>
 </sdf>

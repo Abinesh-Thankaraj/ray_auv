@@ -117,6 +117,18 @@
       <pose>0 0 0 0 0 0</pose>
     </include>
 
+    <include>
+      <uri>file:///home/pdc/ray_ws/src/ray_auv/ray_description/models/standing_person/model_sinking.sdf</uri>
+      <name>standing_person_1</name>
+      <pose>2 0 2.0 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>file:///home/pdc/ray_ws/src/ray_auv/ray_description/models/standing_person/model_lying_sinking.sdf</uri>
+      <name>lying_person_1</name>
+      <pose>-3 2 2.0 0 0 0</pose>
+    </include>
+
   </world>
 </sdf>
 

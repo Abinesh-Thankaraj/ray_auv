@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="person_standing_underwater">
+    <static>true</static>
+    <link name="link">
+      <inertial>
+        <pose>0 0 0.95 0 0 0</pose>
+        <mass>70.0</mass>
+        <inertia>
+          <ixx>24.88</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>25.73</iyy>
+          <iyz>0</iyz>
+          <izz>2.48</izz>
+        </inertia>
+      </inertial>
+
+      <collision name="person_collision">
+        <pose>0 0 0.95 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.6 0.4 1.9</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <pose>0 0 0.95 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.6 0.4 1.9</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.8 0.6 0.4 1</ambient>
+          <diffuse>0.8 0.6 0.4 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

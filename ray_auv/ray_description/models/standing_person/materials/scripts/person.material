@@ -1,0 +1,22 @@
+material PersonMaterial
+{
+  technique
+  {
+    pass
+    {
+      lighting on
+      cull_hardware none
+      cull_software none
+      scene_blend alpha_blend
+      depth_write off
+      depth_check on
+      
+      texture_unit
+      {
+        texture young_lightskinned_male_diffuse.png
+        filtering trilinear
+        tex_address_mode wrap
+      }
+    }
+  }
+}
