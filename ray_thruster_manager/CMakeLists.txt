@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(custom_thruster_manager)
+project(ray_thruster_manager)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -19,12 +19,12 @@ include_directories(include)
 
 # Create the library
 add_library(${PROJECT_NAME} SHARED
-  src/custom_thruster_manager.cpp
+  src/ray_thruster_manager.cpp
 )
 
 # Create the executable
 add_executable(${PROJECT_NAME}_node
-  src/custom_thruster_manager_node.cpp
+  src/ray_thruster_manager_node.cpp
 )
 
 ament_target_dependencies(${PROJECT_NAME}
@@ -52,7 +52,7 @@ target_compile_definitions(${PROJECT_NAME}_node PRIVATE EIGEN_MPL2_ONLY)
 
 # Register the component (commented out since we're using standalone node)
 # rclcpp_components_register_nodes(${PROJECT_NAME}
-#   "custom_thruster_manager::CustomThrusterManager"
+#   "ray_thruster_manager::RayThrusterManager"
 # )
 
 # Install the library and executable

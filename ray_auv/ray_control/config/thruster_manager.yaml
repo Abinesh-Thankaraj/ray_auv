@@ -1,4 +1,4 @@
-/ray/custom_thruster_manager:
+/ray/ray_thruster_manager:
   ros__parameters:
     control_frame: ray/base_link
     publish_joint_state: true

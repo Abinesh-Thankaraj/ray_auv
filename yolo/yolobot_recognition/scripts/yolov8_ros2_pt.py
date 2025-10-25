@@ -73,7 +73,7 @@ class Camera_subscriber(Node):
             classes=[0],    # Person class only
             agnostic_nms=True,  # Better detection of partial views
             max_det=20,     # Allow up to 20 detections
-            half=False,     # Use full precision for better accuracy
+            half=True,      # Use half precision (FP16) for faster inference and less GPU memory
             verbose=False,  # Reduce console spam
             retina_masks=False  # Faster processing
         )

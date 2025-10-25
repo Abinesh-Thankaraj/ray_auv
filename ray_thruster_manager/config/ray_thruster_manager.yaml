@@ -1,4 +1,4 @@
-custom_thruster_manager:
+ray_thruster_manager:
   ros__parameters:
     min_thrust: -40.0
     max_thrust: 40.0

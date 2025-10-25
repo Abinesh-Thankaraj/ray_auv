@@ -11,10 +11,10 @@ def generate_launch_description():
     
     with sl.group(ns=sl.arg('namespace')):
         
-        # Launch custom thruster manager instead of using the one built into auv_control
-        sl.node('custom_thruster_manager', 'custom_thruster_manager_node', 
-                name='custom_thruster_manager',
-                parameters=[sl.find('custom_thruster_manager', 'custom_thruster_manager.yaml')],
+        # Launch ray thruster manager instead of using the one built into auv_control
+        sl.node('ray_thruster_manager', 'ray_thruster_manager_node', 
+                name='ray_thruster_manager',
+                parameters=[sl.find('ray_thruster_manager', 'ray_thruster_manager.yaml')],
                 output='screen')
         
         # load body controller with custom configuration

@@ -9,7 +9,7 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     # Get the package directory
-    pkg_dir = get_package_share_directory('custom_thruster_manager')
+    pkg_dir = get_package_share_directory('ray_thruster_manager')
     
     # Declare launch arguments
     declare_use_sim_time = DeclareLaunchArgument(
@@ -24,14 +24,14 @@ def generate_launch_description():
         description='Namespace for the Ray'
     )
     
-    # Custom thruster manager node
-    custom_thruster_manager_node = Node(
-        package='custom_thruster_manager',
-        executable='custom_thruster_manager_node',
-        name='custom_thruster_manager',
+    # Ray thruster manager node
+    ray_thruster_manager_node = Node(
+        package='ray_thruster_manager',
+        executable='ray_thruster_manager_node',
+        name='ray_thruster_manager',
         namespace=LaunchConfiguration('namespace'),
         parameters=[
-            os.path.join(pkg_dir, 'config', 'custom_thruster_manager.yaml'),
+            os.path.join(pkg_dir, 'config', 'ray_thruster_manager.yaml'),
             {'use_sim_time': LaunchConfiguration('use_sim_time')}
         ],
         output='screen'
@@ -40,5 +40,5 @@ def generate_launch_description():
     return LaunchDescription([
         declare_use_sim_time,
         declare_namespace,
-        custom_thruster_manager_node
+        ray_thruster_manager_node
     ])

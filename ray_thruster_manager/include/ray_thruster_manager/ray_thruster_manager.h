@@ -1,5 +1,5 @@
-#ifndef CUSTOM_THRUSTER_MANAGER_H
-#define CUSTOM_THRUSTER_MANAGER_H
+#ifndef RAY_THRUSTER_MANAGER_H
+#define RAY_THRUSTER_MANAGER_H
 
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/wrench_stamped.hpp>
@@ -10,13 +10,13 @@
 #include <vector>
 #include <string>
 
-namespace custom_thruster_manager
+namespace ray_thruster_manager
 {
 
-class CustomThrusterManager : public rclcpp::Node
+class RayThrusterManager : public rclcpp::Node
 {
 public:
-    explicit CustomThrusterManager(const rclcpp::NodeOptions& options = rclcpp::NodeOptions());
+    explicit RayThrusterManager(const rclcpp::NodeOptions& options = rclcpp::NodeOptions());
 
 private:
     // ROS 2 components
@@ -24,8 +24,8 @@ private:
     rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr joint_state_pub_;
     std::vector<rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr> thruster_pubs_;
     
-    // TAM configuration for custom thruster allocation
-    Eigen::MatrixXd custom_tam_;
+    // TAM configuration for ray thruster allocation
+    Eigen::MatrixXd ray_tam_;
     
     // Thruster limits
     double min_thrust_;
@@ -38,8 +38,8 @@ private:
     // Callback functions
     void wrenchCallback(const geometry_msgs::msg::WrenchStamped::SharedPtr msg);
     
-    // Custom TAM computation based on user requirements
-    void setupCustomTAM();
+    // Ray TAM computation based on user requirements
+    void setupRayTAM();
     
     // Thruster allocation solver
     Eigen::VectorXd solveThrusterAllocation(const Eigen::VectorXd& wrench);
@@ -53,6 +53,6 @@ private:
     void loadParameters();
 };
 
-} // namespace custom_thruster_manager
+} // namespace ray_thruster_manager
 
-#endif // CUSTOM_THRUSTER_MANAGER_H
+#endif // RAY_THRUSTER_MANAGER_H

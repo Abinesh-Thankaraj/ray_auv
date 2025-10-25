@@ -1,22 +1,22 @@
-#include "custom_thruster_manager/custom_thruster_manager.h"
+#include "ray_thruster_manager/ray_thruster_manager.h"
 #include <Eigen/Dense>
 #include <algorithm>
 #include <cmath>
 
-namespace custom_thruster_manager
+namespace ray_thruster_manager
 {
 
-CustomThrusterManager::CustomThrusterManager(const rclcpp::NodeOptions& options) : Node("custom_thruster_manager", options)
+RayThrusterManager::RayThrusterManager(const rclcpp::NodeOptions& options) : Node("ray_thruster_manager", options)
 {
     declareParameters();
     loadParameters();
     
-    // Setup custom TAM based on user requirements
-    setupCustomTAM();
+    // Setup ray TAM based on user requirements
+    setupRayTAM();
     
     // Setup publishers and subscribers
     wrench_sub_ = this->create_subscription<geometry_msgs::msg::WrenchStamped>(
-        "wrench", 10, std::bind(&CustomThrusterManager::wrenchCallback, this, std::placeholders::_1));
+        "wrench", 10, std::bind(&RayThrusterManager::wrenchCallback, this, std::placeholders::_1));
     
     joint_state_pub_ = this->create_publisher<sensor_msgs::msg::JointState>("cmd_thrust", 10);
     
@@ -27,10 +27,10 @@ CustomThrusterManager::CustomThrusterManager(const rclcpp::NodeOptions& options)
             this->create_publisher<std_msgs::msg::Float64>("cmd_" + thruster_name, 10));
     }
     
-    RCLCPP_INFO(this->get_logger(), "Custom Thruster Manager initialized with custom TAM");
+    RCLCPP_INFO(this->get_logger(), "Ray Thruster Manager initialized with ray TAM");
 }
 
-void CustomThrusterManager::declareParameters()
+void RayThrusterManager::declareParameters()
 {
     this->declare_parameter("min_thrust", -40.0);
     this->declare_parameter("max_thrust", 40.0);
@@ -38,7 +38,7 @@ void CustomThrusterManager::declareParameters()
     this->declare_parameter("thruster_names", std::vector<std::string>{"thruster1", "thruster2", "thruster3", "thruster4", "thruster5", "thruster6"});
 }
 
-void CustomThrusterManager::loadParameters()
+void RayThrusterManager::loadParameters()
 {
     min_thrust_ = this->get_parameter("min_thrust").as_double();
     max_thrust_ = this->get_parameter("max_thrust").as_double();
@@ -46,10 +46,10 @@ void CustomThrusterManager::loadParameters()
     thruster_names_ = this->get_parameter("thruster_names").as_string_array();
 }
 
-void CustomThrusterManager::setupCustomTAM()
+void RayThrusterManager::setupRayTAM()
 {
     // Initialize 6x6 TAM matrix (6 DOF x 6 thrusters)
-    custom_tam_ = Eigen::MatrixXd::Zero(6, 6);
+    ray_tam_ = Eigen::MatrixXd::Zero(6, 6);
     
     // Based on actual thruster positions from URDF:
     // Thruster 1: (0.0549, 0.0, 0.0715) with rotation (0, 0, -π/2) - Side thruster pointing left
@@ -62,38 +62,38 @@ void CustomThrusterManager::setupCustomTAM()
     // Order: [surge, sway, heave, roll, pitch, yaw]
     
     // Thruster 1: Side thruster - primarily sway, some yaw
-    custom_tam_(1, 0) = -1.0;  // sway (negative because pointing left)
-    custom_tam_(5, 0) = -0.0549;  // yaw (moment arm)
+    ray_tam_(1, 0) = -1.0;  // sway (negative because pointing left)
+    ray_tam_(5, 0) = -0.0549;  // yaw (moment arm)
     
     // Thruster 2: Forward thruster - primarily surge, some yaw
-    custom_tam_(0, 1) = 1.0;  // surge (forward)
-    custom_tam_(5, 1) = 0.0747;  // yaw (positive moment arm)
+    ray_tam_(0, 1) = 1.0;  // surge (forward)
+    ray_tam_(5, 1) = 0.0747;  // yaw (positive moment arm)
     
     // Thruster 3: Forward thruster - primarily surge, some yaw
-    custom_tam_(0, 2) = 1.0;  // surge (forward)
-    custom_tam_(5, 2) = -0.0747;  // yaw (negative moment arm)
+    ray_tam_(0, 2) = 1.0;  // surge (forward)
+    ray_tam_(5, 2) = -0.0747;  // yaw (negative moment arm)
     
     // Thruster 4: Vertical thruster - primarily heave, some pitch
-    custom_tam_(2, 3) = -1.0;  // heave (negative because pointing down)
-    custom_tam_(4, 3) = -0.1815;  // pitch (negative moment arm)
+    ray_tam_(2, 3) = -1.0;  // heave (negative because pointing down)
+    ray_tam_(4, 3) = -0.1815;  // pitch (negative moment arm)
     
     // Thruster 5: Vertical thruster - primarily heave, some pitch and roll
-    custom_tam_(2, 4) = -1.0;  // heave (negative because pointing down)
-    custom_tam_(4, 4) = -0.0684;  // pitch (negative moment arm)
-    custom_tam_(3, 4) = 0.0684;  // roll (positive moment arm)
+    ray_tam_(2, 4) = -1.0;  // heave (negative because pointing down)
+    ray_tam_(4, 4) = -0.0684;  // pitch (negative moment arm)
+    ray_tam_(3, 4) = 0.0684;  // roll (positive moment arm)
     
     // Thruster 6: Vertical thruster - primarily heave, some pitch and roll
-    custom_tam_(2, 5) = -1.0;  // heave (negative because pointing down)
-    custom_tam_(4, 5) = 0.0684;  // pitch (positive moment arm)
-    custom_tam_(3, 5) = -0.0684;  // roll (negative moment arm)
+    ray_tam_(2, 5) = -1.0;  // heave (negative because pointing down)
+    ray_tam_(4, 5) = 0.0684;  // pitch (positive moment arm)
+    ray_tam_(3, 5) = -0.0684;  // roll (negative moment arm)
     
-    RCLCPP_INFO(this->get_logger(), "Custom TAM configured with actual thruster geometry:");
+    RCLCPP_INFO(this->get_logger(), "Ray TAM configured with actual thruster geometry:");
     RCLCPP_INFO(this->get_logger(), "Thruster 1: Side thruster (sway + yaw)");
     RCLCPP_INFO(this->get_logger(), "Thruster 2,3: Forward thrusters (surge + yaw)");
     RCLCPP_INFO(this->get_logger(), "Thruster 4,5,6: Vertical thrusters (heave + pitch + roll)");
 }
 
-void CustomThrusterManager::wrenchCallback(const geometry_msgs::msg::WrenchStamped::SharedPtr msg)
+void RayThrusterManager::wrenchCallback(const geometry_msgs::msg::WrenchStamped::SharedPtr msg)
 {
     // Convert wrench message to Eigen vector
     Eigen::VectorXd wrench(6);
@@ -107,10 +107,10 @@ void CustomThrusterManager::wrenchCallback(const geometry_msgs::msg::WrenchStamp
     publishThrusterCommands(thrust);
 }
 
-Eigen::VectorXd CustomThrusterManager::solveThrusterAllocation(const Eigen::VectorXd& wrench)
+Eigen::VectorXd RayThrusterManager::solveThrusterAllocation(const Eigen::VectorXd& wrench)
 {
     // Use pseudo-inverse to solve TAM * thrust = wrench
-    Eigen::MatrixXd tam_inv = custom_tam_.completeOrthogonalDecomposition().pseudoInverse();
+    Eigen::MatrixXd tam_inv = ray_tam_.completeOrthogonalDecomposition().pseudoInverse();
     Eigen::VectorXd thrust = tam_inv * wrench;
     
     // Scale thrust to respect limits
@@ -119,7 +119,7 @@ Eigen::VectorXd CustomThrusterManager::solveThrusterAllocation(const Eigen::Vect
     return thrust;
 }
 
-void CustomThrusterManager::scaleThrust(Eigen::VectorXd& thrust)
+void RayThrusterManager::scaleThrust(Eigen::VectorXd& thrust)
 {
     double scale = 1.0;
     
@@ -158,7 +158,7 @@ void CustomThrusterManager::scaleThrust(Eigen::VectorXd& thrust)
     }
 }
 
-void CustomThrusterManager::publishThrusterCommands(const Eigen::VectorXd& thrust)
+void RayThrusterManager::publishThrusterCommands(const Eigen::VectorXd& thrust)
 {
     // Publish as JointState
     auto joint_state_msg = std::make_unique<sensor_msgs::msg::JointState>();
@@ -182,4 +182,4 @@ void CustomThrusterManager::publishThrusterCommands(const Eigen::VectorXd& thrus
     }
 }
 
-} // namespace custom_thruster_manager
+} // namespace ray_thruster_manager

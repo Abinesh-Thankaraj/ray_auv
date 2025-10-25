@@ -11,13 +11,13 @@ def generate_launch_description():
     
     with sl.group(ns=sl.arg('namespace')):
         
-        # Load custom thruster manager instead of default
-        sl.node('custom_thruster_manager', 'custom_thruster_manager_node', 
-                parameters=[sl.find('custom_thruster_manager', 'custom_thruster_manager.yaml')],
+        # Load ray thruster manager instead of default
+        sl.node('ray_thruster_manager', 'ray_thruster_manager_node', 
+                parameters=[sl.find('ray_thruster_manager', 'ray_thruster_manager.yaml')],
                 output='screen')
         
-        # Load body controller with custom thruster manager
-        sl.node('auv_control', 'sliding_mode', parameters=[sl.find('custom_thruster_manager', 'custom_sliding_mode.yaml')],
+        # Load body controller with ray thruster manager
+        sl.node('auv_control', 'sliding_mode', parameters=[sl.find('ray_thruster_manager', 'custom_sliding_mode.yaml')],
                 output='screen')
 
         with sl.group(if_arg='sliders'):

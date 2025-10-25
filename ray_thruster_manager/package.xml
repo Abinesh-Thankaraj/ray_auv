@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>custom_thruster_manager</name>
+  <name>ray_thruster_manager</name>
   <version>0.0.1</version>
-  <description>Custom thruster manager TAM configuration</description>
+  <description>Ray AUV thruster manager TAM configuration</description>
   <maintainer email="abineshthankaraj2004@gmail.com">Abinesh Thankaraj</maintainer>
   <license>Apache License 2.0</license>
 
