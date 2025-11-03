@@ -6,19 +6,23 @@ This simulation package was developed as part of my ongoing research in biomimet
 
 ## 🧭 Overview
 
-This repository contains a **ROS 2-based simulation** of a **stingray-inspired Autonomous Underwater Vehicle (AUV)** designed for **underwater search and rescue missions**.
+- This repository contains a **ROS 2-based simulation** of a **stingray-inspired Autonomous Underwater Vehicle (AUV)** designed for **underwater search and rescue missions**.
 
-The AUV incorporates a **custom six-thruster configuration** that enables full **six-degree-of-freedom (6-DoF) motion control** with minimal coupling.  
+- The AUV incorporates a **custom six-thruster configuration** that enables full **six-degree-of-freedom (6-DoF) motion control** with minimal coupling.  
 A **nonlinear Sliding Mode Controller (SMC)** ensures robust trajectory tracking and disturbance rejection in underwater environments.
 
-The model is validated in **Ignition Gazebo Fortress** with **ROS 2 Humble**, featuring **YOLOv8-based real-time human detection** for underwater perception tasks.
+- The model is validated in **Ignition Gazebo Fortress** with **ROS 2 Humble**, featuring **YOLOv8-based real-time human detection** for underwater perception tasks.
 
 ---
 
-## 🖼️ Simulation Images
+## 🖼️ Simulation Videos
 
-### Simulation 1  
+### Real-time YOLOv8-based underwater human detection 
 
+<p align="center">
+  <img src="video/Stingray_Person_Detection.gif" alt="Real-time YOLOv8-based underwater human detection" width="500"/>
+  <br>
+</p>
 
 *Figure: Stingray-inspired AUV in canyon world simulated in Ignition Gazebo*
 
