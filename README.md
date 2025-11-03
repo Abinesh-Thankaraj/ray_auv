@@ -17,21 +17,21 @@ A **nonlinear Sliding Mode Controller (SMC)** ensures robust trajectory tracking
 
 ## 🖼️ Simulation Videos
 
-### Real-time YOLOv8-based underwater human detection 
+### 1. Real-time YOLOv8-based underwater human detection 
 
 <p align="center">
   <img src="video/Stingray_Person_Detection.gif" alt="Real-time YOLOv8-based underwater human detection" width="500"/>
   <br>
 </p>
 
-### Heave motion of Stingray AUV controlled by nonlinear SMC controller
+### 2. Heave motion of Stingray AUV controlled by nonlinear SMC controller
 
 <p align="center">
   <img src="video/Stingray_Heave.gif" alt="Heave motion of Stingray AUV controlled by nonlinear SMC controller" width="500"/>
   <br>
 </p>
 
-### Yaw motion of Stingray AUV
+### 3. Yaw motion of Stingray AUV
 
 <p align="center">
   <img src="video/Stingray_Yaw.gif" alt="Yaw motion of Stingray AUV" width="500"/>
@@ -92,3 +92,45 @@ git clone https://github.com/Abinesh-Thankaraj/ray_auv.git
 cd ~/ray_ws
 colcon build --symlink-install
 source install/setup.bash
+```
+
+---
+
+## 🚀 Launching the Simulation
+
+### 1. Canyon World Launch  
+Spawns the Stingray AUV in an underwater Gazebo world:
+```bash
+ros2 launch ray_description canyon_world_launch.py
+```
+
+### 2. Launch the Nonlinear Control System (SMC)
+Starts the Sliding Mode Controller (SMC) and visualizes wrenches and forces in RViz:
+```bash
+ros2 launch ray_control custom_sliding_mode_launch.py
+```
+
+### 3. Launch YOLOv8-Based Person Detection
+Activates underwater human detection using YOLOv8:
+```bash
+ros2 launch yolobot_recognition launch_yolov8.launch.py
+```
+This launches:
+- Real-time Person Detection interface
+- Ignition Gazebo Fortress (v6.17.0) GUI
+- RViz2 visualization
+
+---
+
+## 📊 Results and Visualization
+
+ - RMS position error: < 0.1 m
+ - Orientation error: < 0.05 rad
+ - Significant reduction in control effort compared to traditional PID-based systems
+ - Real-time perception and control demonstrated in Ignition Gazebo and RViz environments
+
+## 📚 Future Work
+
+ - Integration with real-time underwater camera hardware
+ - Adaptive control under dynamic current profiles
+ - Swarm Stingray AUV exploration and rescue planning
