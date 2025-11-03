@@ -24,12 +24,19 @@ A **nonlinear Sliding Mode Controller (SMC)** ensures robust trajectory tracking
   <br>
 </p>
 
-*Figure: Stingray-inspired AUV in canyon world simulated in Ignition Gazebo*
+### Heave motion of Stingray AUV controlled by nonlinear SMC controller
 
-### Simulation 2  
-*Figure: Real-time YOLOv8-based underwater human detection*
+<p align="center">
+  <img src="video/Stingray_Heave.gif" alt="Heave motion of Stingray AUV controlled by nonlinear SMC controller" width="500"/>
+  <br>
+</p>
 
+### Yaw motion of Stingray AUV
 
+<p align="center">
+  <img src="video/Stingray_Yaw.gif" alt="Yaw motion of Stingray AUV" width="500"/>
+  <br>
+</p>
 
 ---
 
