@@ -1,3 +1,11 @@
+# 🤖 Underwater Remotely Operated Vehicle v2.0
+
+![ROV Preview](rov_preview.webp)
+
+A compact and efficient **Underwater Remotely Operated Vehicle (ROV)** designed for search and rescue missions in turbulent water bodies like the Ganga River. This system combines real-time video monitoring and intelligent object detection to support underwater navigation and victim identification.
+
+---
+
 # ROS 2-Based Nonlinear Control of a Stingray-Inspired AUV for Underwater Search and Rescue
 
 This simulation package was developed as part of my ongoing research in biomimetic underwater robotics and autonomous control systems.
