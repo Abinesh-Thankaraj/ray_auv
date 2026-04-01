@@ -1,0 +1,84 @@
+# PS5 Joystick Controller Configuration for RAY AUV
+# ULTRA RESPONSIVE MODE - Fast ROV response to controller input
+
+joystick_controller:
+  ros__parameters:
+    # Deadzone threshold for analog sticks (0.0 - 1.0)
+    # Lower value = More responsive (but more drift-prone)
+    # Higher value = Less drift (but less responsive)
+    # ULTRA RESPONSIVE MODE: Use 0.02 for maximum responsiveness
+    deadzone: 0.02
+    
+    # Maximum linear velocity for forward/backward and lateral motion (m/s)
+    # Higher = Faster movement, quicker ROV response
+    # ULTRA RESPONSIVE MODE: 5.0 m/s for fast ROV motion
+    max_linear_velocity: 5.0
+    
+    # Maximum angular velocity for rotation (rad/s)
+    # ~6.28 rad/s = ~360 degrees/second (full spin per 0.5 second)
+    # ULTRA RESPONSIVE MODE: 6.28 rad/s for very fast rotation
+    max_angular_velocity: 6.28318
+    
+    # Maximum depth the ROV can go (meters)
+    # Will clamp Z position to -max_depth to 0
+    max_depth: 20.0
+    
+    # Initial depth position in meters (0.0 = water surface)
+    # Start at water surface for clean environment
+    initial_z: 0.0
+    
+    # Smoothing factor for velocity interpolation (0.0 - 1.0)
+    # CRITICAL FOR SMOOTH CONTROL!
+    # Higher = More responsive (0.8-1.0)
+    # Lower = More smooth filtering (0.5-0.7)
+    # ULTRA RESPONSIVE MODE: 0.95 for maximum responsiveness and fast ROV motion
+    smoothing_factor: 0.95
+
+# Joy node parameters (if using joy_node from the joy package)
+joy:
+  ros__parameters:
+    # The joystick device name
+    dev: '/dev/input/js0'
+    
+    # Publish frequency (Hz)
+    frequency: 30.0
+    
+    # Coalesce ratio for joystick data
+    coalesce_interval: 0.01
+
+# Joystick Axis Mapping (for reference):
+# PS5 DualSense Controller:
+#   Axes:
+#     0: Left Stick X (lateral motion, -1=left, 1=right)
+#     1: Left Stick Y (forward/backward, -1=forward, 1=backward)
+#     2: L2 Trigger (-1=not pressed, 1=fully pressed)
+#     3: Right Stick X (roll/yaw depending on mode)
+#     4: Right Stick Y (pitch)
+#     5: R2 Trigger (-1=not pressed, 1=fully pressed)
+#   
+#   Buttons:
+#     0: Square
+#     1: X (Yaw mode toggle)
+#     2: Circle
+#     3: Triangle
+#     4: LB (L1)
+#     5: RB (R1)
+#     6: LT (L2 button)
+#     7: RT (R2 button)
+#     8: Left Stick Click
+#     9: Right Stick Click
+#     10: PS Button
+#     11: Touchpad Click
+
+# Control Mapping:
+# Motion Control (6 DOF):
+#   X Axis (Lateral):     Left Stick X
+#   Y Axis (Forward/Back): Left Stick Y
+#   Z Axis (Depth):       L2 (down) / R2 (up)
+#   Roll:                 Right Stick X (normal mode)
+#   Pitch:                Right Stick Y
+#   Yaw:                  Right Stick X (with X button toggle)
+#
+# Modes:
+#   Normal Mode: Roll/Pitch control with right stick
+#   Yaw Mode:    Yaw control with right stick X (toggle with X button)
